@@ -6,9 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
       isCollapse: false,
-      sideBarWidth : '210px',
+      sideBarWidth : '150px',
       sideBarWidthFolded: '14px',
-      sideBarWidthExpand : '210px',
+      sideBarWidthExpand : '150px',
       sideBarArrow: 'el-icon-caret-left',
       sideBarArrowLeft: 'el-icon-caret-left',
       sideBarArrowRight: 'el-icon-caret-right',

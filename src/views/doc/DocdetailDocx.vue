@@ -1,71 +1,41 @@
 <template>
     <div>
-        
         <div class="btn-container">
             <el-button type="success" icon="el-icon-download" @click="downloadFile">下载</el-button>
-            <!-- <div>{{fileName}}</div> -->
+            <div>文件名称: {{fileInfo.fileName}}</div>
         </div>
-       <word></word>
+        <wordDocx :id="id"></wordDocx>
     </div>
 </template>
 
 <script>
-/* import Word from '../../components/Word.vue';
-import { useRouter, useRoute } from "vue-router";
-import { ref, toRefs, watchEffect } from "vue";
+import WordDocx from '../../../src/components/WordDocx.vue';
 import { DocModelData } from './model/docModel';
-import store from "../../store"; */
+const { getFileInfo, downloadFile } = DocModelData();
+
 export default {
     name: 'docdetailDocx',
-    methods: {
-        downloadFile: () => {
-            console.log('downloadFile');
-        }
+    components: {
+        'wordDocx': WordDocx,
     },
-    /* components: {
-        Word
-    },
-    setup(){
-        const {state, download} = DocModelData();
-        const router = useRouter();
-        const route = useRoute();
-        let id = route.params.id;
-        let selectedFileData = store.state.selectedFileData;
-        let fileName = ref(null)
-        const findDataById = (dirFileDataAllList) => {
-            if(dirFileDataAllList){
-                dirFileDataAllList.forEach((item, idx) => {
-                    console.log('findDataById')
-                    if(item.id == id){
-                        fileName.value = item.fileName;
-                        selectedFileData = item;
-                        return;
-                    }
-                    if(item.children && item.children.length > 0){
-                        findDataById(item.children);
-                    }
-                })
-            }
-        }
-        watchEffect(() => {
-            let dirFileDataList = store.state.dirFileDataList;
-            console.log('watchEffect findDataById')
-            findDataById(dirFileDataList);
-        })
-
-        const downloadFile = () => {
-            download(route.params.id);
-        }
-
+    data() {
         return {
-            ...toRefs(state),
-            download, 
-            router,
-            ...toRefs(selectedFileData),
-            fileName,
-            downloadFile
+            fileInfo: {},
+        };
+    },
+    props:{
+ 		id:{
+ 			type:[String,Number]
+ 		},
+    },
+    async created() {
+        this.fileInfo = await getFileInfo(this.id);
+    },
+    methods: {
+        downloadFile: function() {
+            downloadFile(this.id);
         }
-    } */
+    },
 }
 </script>
 

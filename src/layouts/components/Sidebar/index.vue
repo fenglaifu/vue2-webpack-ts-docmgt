@@ -1,5 +1,5 @@
 <template>
-<el-aside :style="{ 'width' : $store.state.sideBarWidth}" class="menuleft">
+<aside :style="{ 'width' : $store.state.sideBarWidth}" class="menuleft">
   <el-scrollbar wrap-class="scrollbar-wrapper">
     <el-menu
       :default-active="activeMenu"
@@ -19,7 +19,7 @@
   <div class="toggleButton" @click="$store.commit('togleCollapse')">
     <i :class="$store.state.sideBarArrow"></i>
   </div>
-</el-aside>
+</aside>
 </template>
 <script>
 import SidebarItem from './SidebarItem.vue';
@@ -50,12 +50,12 @@ export default {
 }
 
 </script>
-<style lang='scss' scoped>
-
+<style lang='scss' >
+@import '../../../assets/styles/variables.scss';
  .menuleft{
-      width: 210px;
+      width: $sideBarWidth;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       align-items: center;
   }
   #app .sidebar-container .el-scrollbar {

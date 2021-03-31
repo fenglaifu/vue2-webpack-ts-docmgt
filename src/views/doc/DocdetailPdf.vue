@@ -3,50 +3,39 @@
         
         <div class="btn-container">
             <el-button type="success" icon="el-icon-download" @click="downloadFile">下载</el-button>
-            <!-- <div>{{fileName}}</div> -->
+            <div>文件名称: {{fileInfo.fileName}}</div>
         </div>
-        <!-- <pdf-component></pdf-component> -->
+        <pdfComponent :id="id"></pdfComponent>
     </div>
 </template>
 
 <script>
-/* import PdfComponent from '../../components/PdfComponent.vue';
-import { useRouter, useRoute } from "vue-router";
-import { toRefs, watchEffect } from "vue";
+import PdfComponent from '../../components/PdfComponent.vue';
 import { DocModelData } from './model/docModel';
-import store from "../../store"; */
+const { getFileInfo, downloadFile } = DocModelData();
 export default {
     name: 'docdetailPdf',
-    methods: {
-        downloadFile: () => {
-            console.log('downloadFile');
-        }
+    components: {
+        'pdfComponent': PdfComponent
     },
-    /* components: {
-        PdfComponent
-    },
-    setup(){
-        const {state, getPageDataList, getAllDataList, download} = DocModelData();
-        const router = useRouter();
-        const route = useRoute();
-        let selectedFileData = store.state.selectedFileData;
-        watchEffect(() => {
-            console.log('watchEffect')
-            selectedFileData = store.state.selectedFileData;
-            console.log(selectedFileData.fileName)
-        })
-
-        const downloadFile = () => {
-            download(route.params.id);
-        }
+    data() {
         return {
-            ...toRefs(state),
-            download, 
-            router,
-            ...toRefs(selectedFileData),
-            downloadFile
+            fileInfo: {},
+        };
+    },
+    props:{
+ 		id:{
+ 			type:[String,Number]
+ 		},
+    },
+    async created() {
+        this.fileInfo = await getFileInfo(this.id);
+    },
+    methods: {
+        downloadFile: function() {
+            downloadFile(this.id);
         }
-    } */
+    },
 }
 </script>
 

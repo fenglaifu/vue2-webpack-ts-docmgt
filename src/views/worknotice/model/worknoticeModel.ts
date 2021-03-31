@@ -13,7 +13,7 @@ export function WorkNoticeModelData() {
         modelData: {},
     };
 
-    const service = new HttpService();
+    const service = new HttpService(null);
 
     const getDataList = () => {
         state.loading = true;
@@ -21,7 +21,7 @@ export function WorkNoticeModelData() {
         let url = `/workNotice/${state.listQuery.curPage}/${state.listQuery.pageSize}`;
         /* let url = '/workNotice/1/10'; */
         return service.getData(url)
-        .then(result => {
+        .then((result:any) => {
           console.log(result);
           state.list = result.list;
           state.total = result.total;
@@ -35,7 +35,7 @@ export function WorkNoticeModelData() {
         });
     }
 
-    const saveNotice = (notice) => {
+    const saveNotice = (notice:AnalyserNode) => {
         state.loading = true;
         let url = `/workNotice`;
         return service.postData(url, notice)
@@ -47,11 +47,11 @@ export function WorkNoticeModelData() {
                 });
     }
 
-    const getDetail = (id) => {
+    const getDetail = (id:number) => {
         state.loading = true;
         let url = `/workNotice/${id}`;
         return service.getData(url)
-                        .then(data => {
+                        .then((data:any) => {
                             console.log(data);
                             state.modelData = data;
                         })

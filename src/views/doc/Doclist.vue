@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { DocModelData } from './model/docModel';
-
+import { Message } from 'element-ui';
 const {state, getAllDataList} = DocModelData();
 
 export default {
@@ -79,7 +79,12 @@ export default {
             return;
           }
           else {
-            this.$router.push({ name: "docdetail", params: { id:  data.id}});
+            /* this.$router.push({ name: "docdetail", params: { id:  data.id}}); */
+            Message({
+                    message: `不支持文件类型[${suffix}]的预览`,
+                    type: "error",
+                    duration: 3 * 1000,
+                });
             return;
           }
         }

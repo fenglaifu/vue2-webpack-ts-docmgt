@@ -6,24 +6,37 @@ export class HttpService {
     public modal: any;
     public baseURL: String;
 
-    constructor(parameters) {
+    constructor(parameters:any) {
         const serviceRequest = new HttpServiceRequest();
         this.axios = serviceRequest.getInstance();
         this.baseURL = serviceRequest.getBaseURL();
     }
 
-    public getData(url: String, params?: object) {
+    public getData(url: String, params?: object, responseType?: string) {
         const body = {
             parameter: {
                 data: params,
             },
         };
+        if(responseType != ''){
+            return new Promise((resolve, reject) => {
+                this.axios.get(url, {
+                    params: body,
+                    responseType: responseType,
+                }).then((res:any) => {
+                    this.resultHandle(res, resolve);
+                }).catch((err:any) => {
+                    reject(err.message);
+                });
+            });
+        }
+
         return new Promise((resolve, reject) => {
             this.axios.get(url, {
                 params: body,
-            }).then((res) => {
+            }).then((res:any) => {
                 this.resultHandle(res, resolve);
-            }).catch((err) => {
+            }).catch((err:any) => {
                 reject(err.message);
             });
         });
@@ -38,6 +51,18 @@ export class HttpService {
         return new Promise((resolve, reject) => {
             this.axios.post(url, data,{
                 params: body,
+            }).then((res) => {
+                this.resultHandle(res, resolve);
+            }).catch((err) => {
+                reject(err.message);
+            });
+        });
+    }
+
+    public getArrayBufferData(url: String, responseType?: string) {
+        return new Promise((resolve, reject) => {
+            this.axios.get(url,{
+                responseType: responseType,
             }).then((res) => {
                 this.resultHandle(res, resolve);
             }).catch((err) => {

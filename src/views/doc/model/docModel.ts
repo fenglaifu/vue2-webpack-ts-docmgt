@@ -1,9 +1,11 @@
 
 import {HttpService} from '../../../utils/HttpService';
+import axios from 'axios';
+import ElementUI, { Message } from 'element-ui';
 
 export function DocModelData() {
 
-    const service = new HttpService();
+    const service = new HttpService(null);
 
     const baseURL = service.baseURL;
 
@@ -23,11 +25,11 @@ export function DocModelData() {
         }
     };
 
-    const getAllDataList = (vueObj) => {
+    const getAllDataList = (vueObj:any) => {
         state.loading = true;
         let url = '/docFile/getAllDirFile';
         return service.getData(url)
-        .then(result => {
+        .then((result:any) => {
             console.log('getAllDataList()');
             console.log(result);
             state.dataList = result;
@@ -42,6 +44,145 @@ export function DocModelData() {
             state.loading = false;
         });
     }
+
+    const getAllDirTree = () => {
+        let url = '/docFile/getAllDirTree';
+        return service.getData(url)
+        .then(result => {
+            console.log('getAllDir()');
+            console.log(result);
+            return result;
+        })
+        .finally(() => {
+            state.loading = false;
+        });
+    }
+
+    const getFileInfo =(id: number) => {
+        let url = `/docFile/${id}`;
+        return service.getData(url)
+        .then(result => {
+            console.log('getFileInfo()');
+            return result;
+        })
+        .finally(() => {
+            state.loading = false;
+        });
+    }
+
+    const services = axios.create({
+        baseURL: "http://localhost:5000/api",
+        timeout: 360000
+      });
+      
+      services.interceptors.request.use(
+        (config) => {
+          return config;
+        },
+        (error) => {
+          console.log(error);
+          return Promise.reject(error);
+        }
+      );
+      
+      services.interceptors.response.use(
+       
+        (response) => {
+          response.headers['Content-Type'] = 'application/json';
+          response.headers['Access-Control-Allow-Origin'] = '*';
+          return response;
+        },
+        (error) => {
+          console.log("err" + error);
+          Message({
+            message: error.message,
+            type: "error",
+            duration: 5 * 1000,
+          });
+          return Promise.reject(error);
+        }
+      );
+
+    const previewFile = (id: number) => {
+        let url = `/preview/${id}`;
+        return services({
+            url: url,
+            method: "get",
+            responseType:'arraybuffer'
+        });
+    }
+
+    const previewDocxFile = (id: number) => {
+        let url = `/preview/${id}`;
+        return axios({
+            url: baseURL + url,
+            responseType:'arraybuffer',
+        }).then(result => {
+            return result.data;
+        })
+        .catch(error => {
+            console.log('previewFile');
+            console.log(error);
+        });
+    }
+
+    const previewXlsxFile = (id: number) => {
+        let url = `/preview/${id}`;
+        return services({
+            url: url,
+            method: "get",
+            responseType:'arraybuffer'
+        });
+    }
+
+    const previewPdfFile = (id: number) => {
+        let url = `/preview/${id}`;
+        return axios({
+            url: baseURL + url,
+            responseType:'arraybuffer',
+        }).then(result => {
+            return result.data;
+        })
+        .catch(error => {
+            console.log('previewFile');
+            console.log(error);
+        });
+    }
+
     
-    return {state, getAllDataList}
+    const uploadSingle = (filePath:any) => {
+        let url = '/uploadSingle';
+        return service.postData(url,filePath,{
+            
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log('uploadSingle');
+            console.log(error);
+        });
+    }
+
+    const downloadFile = (id: number) => {
+        /* return request({
+            url: "/downloadFile",
+            method: "get",
+            params: {'filePath': filePath}
+        })
+        .then(response => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log('download');
+            console.log(error);
+        }); */
+        window.location.href = baseURL + "/download/" + id;
+
+    }
+    
+    return {state, baseURL, getAllDataList, getAllDirTree, getFileInfo, previewFile, previewPdfFile, previewXlsxFile, previewDocxFile, uploadSingle, downloadFile}
 }
