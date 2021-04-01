@@ -1,133 +1,49 @@
 <template>
     <div>
-        
-        <div class="btn-container">
-            <el-button type="success" icon="el-icon-download" @click="downloadFile">下载</el-button>
-            <div>文件名称: {{fileInfo.fileName}}</div>
-            <div v-html="vHtml" />
-        </div>
-        
+        <docdetailheader :id="id"></docdetailheader>
+        <div v-html="vHtml" />
     </div>
 </template>
 
 <script>
+import DocDetailHeader from './DocDetailHeader';
 import { DocModelData } from './model/docModel';
-const { getFileInfo, downloadFile, previewFile } = DocModelData();
+const { previewFile } = DocModelData();
 export default {
     name: 'docdetailText',
     data() {
         return {
-            fileInfo: {},
             vHtml: '',
         };
+    },
+    components: {
+        'docdetailheader': DocDetailHeader,
     },
     props:{
  		id:{
  			type:[String,Number]
  		},
     },
-    async created() {
-        this.fileInfo = await getFileInfo(this.id);
-    },
     mounted() {
         let this_ = this;
         previewFile(this.id).then(response => {
-            console.log('previewFile response');
-            console.log(response);
             let blob = new Blob([response.data], { type: "application/octet-stream" });
             let reader = new FileReader();
             reader.onload = (loadEvent) => {
                 console.log('reader.onload')
                 if(loadEvent && loadEvent.target && loadEvent.target.result){
                     this_.vHtml = loadEvent.target.result.replace(/\n|\r\n/g,"<br/>");
-                
                 }
-                
             }
             reader.readAsText(blob);
-            
         })
         .catch(error => {
-            console.log('getAllDirTreeList error');
             console.log(error);
         });
     },
-    methods: {
-        downloadFile: function() {
-            downloadFile(this.id);
-        }
-    },
-    /* setup(){
-        const {previewFile, download} = DocModelData();
-        const router = useRouter();
-        const route = useRoute();
-        let id = route.params.id;
-        let selectedFileData = store.state.selectedFileData;
-        let dirFileDataList = store.state.dirFileDataList;
-
-        const findDataById = (dirFileDataAllList) => {
-            if(dirFileDataAllList){
-                dirFileDataAllList.forEach((item, idx) => {
-                    console.log('findDataById')
-                    if(item.id == id){
-                        fileName.value = item.fileName;
-                        selectedFileData = item;
-                        return;
-                    }
-                    if(item.children && item.children.length > 0){
-                        findDataById(item.children);
-                    }
-                })
-            }
-        }
-
-        let fileName = ref(null)
-        let vHtml = ref(null);
-        previewFile(id).then(response => {
-            console.log('previewFile response');
-            console.log(response);
-            let blob = new Blob([response.data], { type: "application/octet-stream" });
-            let reader = new FileReader();
-            reader.onload = (loadEvent) => {
-                console.log('reader.onload')
-                if(loadEvent && loadEvent.target && loadEvent.target.result){
-                    vHtml.value = loadEvent.target.result.replace(/\n|\r\n/g,"<br/>");
-                
-                }
-                
-            }
-            reader.readAsText(blob);
-            
-        })
-        .catch(error => {
-            console.log('getAllDirTreeList error');
-            console.log(error);
-        });
-        
-        watchEffect(() => {
-            console.log('watchEffect')
-            selectedFileData = store.state.selectedFileData;
-            console.log(selectedFileData)
-            findDataById(dirFileDataList);
-        })
-        const downloadFile = () => {
-            download(route.params.id);
-        }
-        return {
-            download, 
-            router,
-            fileName,
-            selectedFileData,
-            downloadFile,
-            vHtml
-        }
-    } */
 }
 </script>
 
 <style scoped>
-.btn-container {
-  text-align: left;
-  padding: 0px 10px 20px 0px;
-}
+
 </style>
