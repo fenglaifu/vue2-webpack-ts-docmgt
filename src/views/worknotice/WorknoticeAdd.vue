@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="container-add">
     <el-form ref="form" :model="state.modelData" :rules="rules">
       <el-form-item prop="title" label="标题">
         <el-input v-model="state.modelData.title"></el-input>
@@ -44,7 +44,8 @@ export default {
                         message: "新增数据成功",
                         duration: 2000,
                     }); 
-                    state.modelData = Object.assign(state.modelData, {});
+                    state.modelData = Object.assign(state.modelData, {content: '', title: ''});
+                    this.$router.push({name: "worknoticelist"});
                 });
                 }
             });

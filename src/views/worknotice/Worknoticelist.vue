@@ -15,11 +15,11 @@
         highlight-current-row
         style="width: 100%"
       >
-        <el-table-column align="center" label="标题" prop="title">
+        <el-table-column align="left" header-align="center" label="标题" prop="title" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column align="center" label="通知内容" prop="content">
+        <el-table-column align="left" header-align="center" label="通知内容" prop="content" show-overflow-tooltip>
         </el-table-column>
-        <el-table-column align="center" label="日期" prop="createDate">
+        <el-table-column align="center" label="日期" prop="createDate" show-overflow-tooltip min-width="100px">
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template v-slot="scope">
@@ -37,7 +37,7 @@
         :total="state.total"
         :page="state.listQuery.curPage"
         :limit="state.listQuery.pageSize"
-        @pagination="getDataList"
+        @pagination="getPageData"
       ></pagination>  
     </div>
 </template>
@@ -80,8 +80,11 @@ export default {
     console.log('updated');
   },
   methods: {
-    getDataList: () => {
-
+    getPageData({page, limit}) {
+      state.listQuery.curPage = page;
+      state.listQuery.pageSize = limit;
+      getDataList();
+      console.log('getDataList');
     },
     handleView({row}) {
       console.log('handleView');

@@ -1,11 +1,11 @@
 <template>
-    <div class="app-container">
+    <div class="container-doc">
       <div class="btn-container">
             <router-link to="/doc/docupload">
               <el-button type="success" icon="el-icon-upload2">上传文档</el-button>
             </router-link>
       </div>
-
+      <hr/>
       <el-tree    
       :props="state.defaultProps"
       :data="dataTreeList"
@@ -95,11 +95,11 @@ export default {
 </script>
 
 <style scoped>
-  .app-container{
+  .container-doc{
     font-size: 30px;
   }
   .btn-container {
     text-align: left;
-    padding: 0px 10px 20px 0px;
+    /* padding: 0px 10px 20px 0px; */
 }
 </style>

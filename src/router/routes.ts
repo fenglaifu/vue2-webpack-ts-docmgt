@@ -14,6 +14,7 @@ const routes:RouteConfig[] = [
         },
         {
           path: '/worknotice',
+          name: 'worknotice',
           component: () => import('../views/worknotice/worknotice.vue'),
           meta: {
             title: '工作通知',

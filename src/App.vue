@@ -26,8 +26,6 @@ export default {
     'navbar': Navbar,
     'app-main': AppMain,
   },
-  created() {
-  },
 };
 </script>
 <style lang='scss'>

@@ -1,5 +1,5 @@
 <template>
-    <div class="app-container aapmain">
+    <div class="app-container app-main">
         <router-view></router-view>
     </div>
     
@@ -14,9 +14,9 @@ export default {
 <style scoped>
 .app-main {
   /*50 = navbar  */
-  min-height: calc(100vh - 50px);
+  height: calc(100vh - 50px);
   width: 100%;
-  position: relative;
-  overflow: hidden;
+  /* position: relative;
+  overflow: hidden; */
 }
 </style>

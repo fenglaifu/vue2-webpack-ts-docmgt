@@ -8,6 +8,9 @@
             <el-form-item prop="content" label="内容">
                 <el-input type="textarea" :autosize="{ minRows: 10,maxRows: 10}" v-model="state.modelData.content" readonly></el-input>
             </el-form-item>
+            <el-form-item>
+                <el-button @click="returnBack" type="primary">返回</el-button>
+            </el-form-item>
         </el-form>
     </div>
 </template>
@@ -36,7 +39,9 @@ export default {
     watch: {
     },
     methods: {
-        
+        returnBack() {
+            this.$router.push({name: "worknoticelist"});
+        },
     },
 }
 </script>

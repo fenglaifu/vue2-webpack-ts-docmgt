@@ -16,7 +16,7 @@ import './assets/styles/index.scss';
 /* Vue.config.productionTip = false; */
 
 import {HttpService} from './utils/HttpService';
-Vue.prototype.$httpService = new HttpService();  // 挂载服务
+Vue.prototype.$httpService = new HttpService(null);  // 挂载服务
 
 new Vue({
   router,
