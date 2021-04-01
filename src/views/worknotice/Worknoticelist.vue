@@ -1,5 +1,5 @@
 <template>
-    <div class="app-container">
+    <div class="container-list">
       <div class="btn-container">
         <!-- 新增按钮 -->
         <router-link to="/worknotice/worknoticeAdd">
@@ -14,6 +14,7 @@
         stripe
         highlight-current-row
         style="width: 100%"
+        :row-style="{ height: '10px' }"
       >
         <el-table-column align="left" header-align="center" label="标题" prop="title" show-overflow-tooltip>
         </el-table-column>
@@ -23,11 +24,7 @@
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template v-slot="scope">
-            <el-button
-              type="primary"
-              @click="handleView(scope)"
-              >内容详情</el-button
-            >
+            <el-button type="primary" @click="handleView(scope)" >内容详情</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -44,7 +41,6 @@
 
 <script lang="ts">
 import Pagination from '../../../src/components/Pagination.vue';
-import store from '../../store';
 import { WorkNoticeModelData } from './model/worknoticeModel';
 const {state, getDataList} = WorkNoticeModelData();
 
@@ -100,6 +96,6 @@ export default {
 <style scoped>
 .btn-container {
   text-align: left;
-  padding: 0px 10px 20px 0px;
+  padding: 0px 10px 10px 0px;
 }
 </style>
