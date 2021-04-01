@@ -21,6 +21,9 @@ export default {
         console.log('PdfComponent mounted');
         this.filePreview = '/static/pdf/web/viewer.html?file=' + encodeURIComponent(baseURL + "/preview/" + this.id);
     },
+    mounted() {
+        this.loading = false;
+    }
 }
 </script>
 
