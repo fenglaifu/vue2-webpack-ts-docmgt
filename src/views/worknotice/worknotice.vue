@@ -1,6 +1,5 @@
 <template>
     <div class="app-container">
-        Worknotice
         <router-view></router-view>
     </div>
     

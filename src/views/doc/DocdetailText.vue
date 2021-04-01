@@ -3,23 +3,58 @@
         
         <div class="btn-container">
             <el-button type="success" icon="el-icon-download" @click="downloadFile">下载</el-button>
-            <!-- <div>{{fileName}}</div>
-            <div v-html="vHtml" /> -->
+            <div>文件名称: {{fileInfo.fileName}}</div>
+            <div v-html="vHtml" />
         </div>
         
     </div>
 </template>
 
-<script lang="ts">
-/* import { useRouter, useRoute } from "vue-router";
-import { ref, toRefs, watchEffect } from "vue";
+<script>
 import { DocModelData } from './model/docModel';
-import store from "../../store"; */
+const { getFileInfo, downloadFile, previewFile } = DocModelData();
 export default {
     name: 'docdetailText',
+    data() {
+        return {
+            fileInfo: {},
+            vHtml: '',
+        };
+    },
+    props:{
+ 		id:{
+ 			type:[String,Number]
+ 		},
+    },
+    async created() {
+        this.fileInfo = await getFileInfo(this.id);
+    },
+    mounted() {
+        let this_ = this;
+        previewFile(this.id).then(response => {
+            console.log('previewFile response');
+            console.log(response);
+            let blob = new Blob([response.data], { type: "application/octet-stream" });
+            let reader = new FileReader();
+            reader.onload = (loadEvent) => {
+                console.log('reader.onload')
+                if(loadEvent && loadEvent.target && loadEvent.target.result){
+                    this_.vHtml = loadEvent.target.result.replace(/\n|\r\n/g,"<br/>");
+                
+                }
+                
+            }
+            reader.readAsText(blob);
+            
+        })
+        .catch(error => {
+            console.log('getAllDirTreeList error');
+            console.log(error);
+        });
+    },
     methods: {
-        downloadFile: () => {
-            console.log('downloadFile');
+        downloadFile: function() {
+            downloadFile(this.id);
         }
     },
     /* setup(){

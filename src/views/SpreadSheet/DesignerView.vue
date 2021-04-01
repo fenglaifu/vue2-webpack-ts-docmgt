@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div v-loading="loading"></div>
         <excelDesigner @designerInitialized="designerInitialized"></excelDesigner>
     </div>
 </template>
@@ -21,6 +22,7 @@ export default {
         return {
             designer: undefined,
             workbook: undefined,
+            loading: true,
         };
     },
     methods: {
@@ -57,13 +59,16 @@ export default {
                     console.log('DesignerView workbookObj')
                     console.log(workbookObj)
                     this_.workbook.fromJSON(workbookObj);
+                    this_.loading = false;
                 }, function (e) {
                     console.log(e);
+                    this_.loading = false;
                 });
             })
             .catch(error => {
                 console.log('DesignerView error');
                 console.log(error);
+                this_.loading = false;
             });
         },
     },
