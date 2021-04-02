@@ -14,7 +14,6 @@
   </div>
 </template>
 <script>
-/* import { Message } from "element3"; */
 import { Message } from 'element-ui';
 import { WorkNoticeModelData } from './model/worknoticeModel';
 const {state, saveNotice } = WorkNoticeModelData();
@@ -29,16 +28,11 @@ export default {
             state,
         };
     },
-    updated() {
-      console.log('updated');
-    },
     methods: {
         submitForm() {
             this.$refs.form.validate((valid) => {
                 if (valid) {
-                // 提交
                 saveNotice(state.modelData).then(() => {
-                    // 操作成功提示信息
                     Message.success({
                         title: "操作成功",
                         message: "新增数据成功",

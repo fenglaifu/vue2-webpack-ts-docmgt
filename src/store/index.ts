@@ -46,7 +46,6 @@ export default new Vuex.Store({
       }
     },
     setDirFileDataList(state, step) {
-      console.log('setDirFileDataList');
       state.dirFileDataList = step ? step : [];
     }
   },

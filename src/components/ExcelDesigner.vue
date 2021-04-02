@@ -25,8 +25,6 @@ export default {
         };
         designer.setConfig(config);
         this.$emit("designerInitialized", designer);
-        console.log("designer");
-        console.log(designer);
     },
 }
 </script>

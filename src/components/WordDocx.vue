@@ -19,7 +19,6 @@ export default {
     },
     async mounted() {
         const data = await previewDocxFile(this.id);
-        console.log('mounted');
         this.loading = false;
         mammoth.convertToHtml({arrayBuffer: data})
                 .then(result=>{

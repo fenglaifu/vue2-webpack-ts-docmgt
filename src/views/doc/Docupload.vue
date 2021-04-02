@@ -50,8 +50,6 @@ export default {
     },
     async mounted() {
        const data:any = await getAllDirTree();
-       console.log('data');
-       console.log(data);
        this.dataTreeList = data ? data : [];
     },
     methods: {
@@ -59,8 +57,6 @@ export default {
 
         },
         uploadFile: function(param:any) {
-            console.log(param)
-            // uploadSingle(null)
             var file = param.file;
             var file_form = new FormData();
             file_form.append("file", file);
@@ -87,7 +83,6 @@ export default {
             return true;
         },
         handleNodeClick: function(data:any, Node:any, element:any) {
-            console.log(data)
             if(data.isDir){
                 if(data.parentId > 0){
                     this.filePath = data.filePath + '/' + data.fileName;

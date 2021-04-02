@@ -17,18 +17,16 @@ export function WorkNoticeModelData() {
 
     const getDataList = () => {
         state.loading = true;
-        console.log('store');
         let url = `/workNotice/${state.listQuery.curPage}/${state.listQuery.pageSize}`;
-        /* let url = '/workNotice/1/10'; */
         return service.getData(url)
         .then((result:any) => {
-          console.log(result);
           state.list = result.list;
           state.total = result.total;
           return result;
         })
         .catch(error => {
           console.log(error);
+          service.showErrorMsg(undefined);
         })
         .finally(() => {
             state.loading = false;
@@ -42,6 +40,10 @@ export function WorkNoticeModelData() {
                 .then(response => {
                     console.log(response);
                 })
+                .catch(error => {
+                    console.log(error);
+                    service.showErrorMsg(undefined);
+                })
                 .finally(() => {
                     state.loading = false;
                 });
@@ -52,8 +54,11 @@ export function WorkNoticeModelData() {
         let url = `/workNotice/${id}`;
         return service.getData(url)
                         .then((data:any) => {
-                            console.log(data);
                             state.modelData = data;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            service.showErrorMsg(undefined);
                         })
                         .finally(() => {
                             state.loading = false;

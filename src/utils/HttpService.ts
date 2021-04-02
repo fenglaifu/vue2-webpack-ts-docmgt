@@ -1,5 +1,5 @@
 import {HttpServiceRequest} from './HttpServiceRequest';
-import ElementUI, { Message } from 'element-ui';
+import { Message } from 'element-ui';
 export class HttpService {
 
     public axios: any;
@@ -79,9 +79,20 @@ export class HttpService {
         }
     }
 
-    public errorHandle(res: any) {
+    public errorHandle(error: any) {
         Message({
             message: error.message,
+            type: "error",
+            duration: 5 * 1000,
+        });
+    }
+
+    public showErrorMsg(errorMsg: any) {
+        if(errorMsg == undefined || errorMsg == null){
+            errorMsg = 'Network Error';
+        }
+        Message({
+            message: errorMsg,
             type: "error",
             duration: 5 * 1000,
         });

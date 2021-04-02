@@ -66,25 +66,14 @@ export default {
   },
   mounted: async () => {
     const data = await getDataList();
-    console.log(data);
-    /* if(data){
-      state.list
-    } */
-    console.log('getDataList');
-  },
-  updated: async () => {
-    console.log('updated');
-    console.log('updated');
   },
   methods: {
     getPageData({page, limit}) {
       state.listQuery.curPage = page;
       state.listQuery.pageSize = limit;
       getDataList();
-      console.log('getDataList');
     },
     handleView({row}) {
-      console.log('handleView');
       this.$router.push({
             name: "worknoticedetail",
             params: { id: row.id },

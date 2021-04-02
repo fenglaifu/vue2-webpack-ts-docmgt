@@ -1,7 +1,7 @@
 
 import {HttpService} from '../../../utils/HttpService';
 import axios from 'axios';
-import ElementUI, { Message } from 'element-ui';
+import { Message } from 'element-ui';
 
 export function DocModelData() {
 
@@ -30,8 +30,6 @@ export function DocModelData() {
         let url = '/docFile/getAllDirFile';
         return service.getData(url)
         .then((result:any) => {
-            console.log('getAllDataList()');
-            console.log(result);
             state.dataList = result;
             vueObj.$store.state.dirFileDataList = result;
             vueObj.$store.commit('setDirFileDataList', result);
@@ -39,6 +37,7 @@ export function DocModelData() {
         })
         .catch(error => {
           console.log(error);
+          service.showErrorMsg(undefined);
         })
         .finally(() => {
             state.loading = false;
@@ -49,9 +48,11 @@ export function DocModelData() {
         let url = '/docFile/getAllDirTree';
         return service.getData(url)
         .then(result => {
-            console.log('getAllDir()');
-            console.log(result);
             return result;
+        })
+        .catch(error => {
+            console.log(error);
+            service.showErrorMsg(undefined);
         })
         .finally(() => {
             state.loading = false;
@@ -62,7 +63,6 @@ export function DocModelData() {
         let url = `/docFile/${id}`;
         return service.getData(url)
         .then(result => {
-            console.log('getFileInfo()');
             return result;
         })
         .finally(() => {
@@ -81,12 +81,12 @@ export function DocModelData() {
         },
         (error) => {
           console.log(error);
+          service.showErrorMsg(undefined);
           return Promise.reject(error);
         }
       );
       
       services.interceptors.response.use(
-       
         (response) => {
           response.headers['Content-Type'] = 'application/json';
           response.headers['Access-Control-Allow-Origin'] = '*';
@@ -121,8 +121,8 @@ export function DocModelData() {
             return result.data;
         })
         .catch(error => {
-            console.log('previewFile');
             console.log(error);
+            service.showErrorMsg(undefined);
         });
     }
 
@@ -144,16 +144,14 @@ export function DocModelData() {
             return result.data;
         })
         .catch(error => {
-            console.log('previewFile');
             console.log(error);
+            service.showErrorMsg(undefined);
         });
     }
-
     
     const uploadSingle = (filePath:any) => {
         let url = '/uploadSingle';
         return service.postData(url,filePath,{
-            
             headers: {
                 "Content-Type": "multipart/form-data"
             }
@@ -162,8 +160,8 @@ export function DocModelData() {
             console.log(response);
         })
         .catch((error) => {
-            console.log('uploadSingle');
             console.log(error);
+            service.showErrorMsg(undefined);
         });
     }
 
@@ -183,6 +181,7 @@ export function DocModelData() {
         window.location.href = baseURL + "/download/" + id;
 
     }
+
     
     return {state, baseURL, getAllDataList, getAllDirTree, getFileInfo, previewFile, previewPdfFile, previewXlsxFile, previewDocxFile, uploadSingle, downloadFile}
 }

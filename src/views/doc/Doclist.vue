@@ -32,26 +32,16 @@ export default {
   },
   watch: {
       dataTreeList: function(){
-        console.log('watch dataTreeList');
         return this.$store.state.dirFileDataList;
       },
   },
-   beforeCreate: async () => {
-      console.log('beforeCreate');
-  },
   async beforeMount() {
       let data = await getAllDataList(this);
-      console.log('docModelData');
-      console.log(data);
-      console.log('this.$store.state.dirFileDataList');
-      console.log(this.$store.state.dirFileDataList);
       this.$store.state.dirFileDataList = [];
-      console.log(this.$store.state.dirFileDataList);
       this.$store.state.dirFileDataList = this.dataTreeList = data;
   },
   methods: {
       handleNodeClick(data:any, Node:any, element:any) {
-          /* this.$router.push({ name: "docdetailPdf", params: { id:  1}}); */
         if(data.isDir){
           return;
         }
@@ -79,7 +69,6 @@ export default {
             return;
           }
           else {
-            /* this.$router.push({ name: "docdetail", params: { id:  data.id}}); */
             Message({
                     message: `不支持文件类型[${suffix}]的预览`,
                     type: "error",
@@ -95,11 +84,7 @@ export default {
 </script>
 
 <style scoped>
-  /* .container-doc{
-    font-size: 30px;
-  } */
   .btn-container {
     text-align: left;
-    /* padding: 0px 10px 20px 0px; */
 }
 </style>
