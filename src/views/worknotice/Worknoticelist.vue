@@ -13,6 +13,7 @@
         fit="fit"
         stripe
         highlight-current-row
+        class="table-wrapper"
         style="width: 100%"
         :row-style="{ height: '10px' }"
       >
@@ -34,8 +35,8 @@
         :total="state.total"
         :page="state.listQuery.curPage"
         :limit="state.listQuery.pageSize"
-        @pagination="getPageData"
-      ></pagination>  
+        @pagination="getPageData">
+      </pagination>  
     </div>
 </template>
 
@@ -97,5 +98,12 @@ export default {
 .btn-container {
   text-align: left;
   padding: 0px 10px 10px 0px;
+}
+.table-wrapper {
+  height: calc(100vh - 220px);
+  overflow: auto;
+}
+.cell button {
+  padding: 10px 20px;
 }
 </style>

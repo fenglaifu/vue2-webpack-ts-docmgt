@@ -33,7 +33,7 @@ export default {
     pageSizes: {
       type: Array,
       default() {
-        return [10, 20, 30, 50];
+        return [5, 10, 15, 20];
       },
     },
     layout: {
@@ -82,7 +82,8 @@ export default {
 <style scoped>
 .pagination-container {
   background: #fff;
-  padding: 32px 16px;
+  padding: 10px 16px;
+  float: right;
 }
 .pagination-container.hidden {
   display: none;
