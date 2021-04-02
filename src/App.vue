@@ -37,6 +37,9 @@ export default {
   height: 100%;
   width: 100%;
 }
+.el-button {
+  padding: 5px 5px !important;
+}
 .sidebar-container {
     transition: width 0.28s;
     width: $sideBarWidth;

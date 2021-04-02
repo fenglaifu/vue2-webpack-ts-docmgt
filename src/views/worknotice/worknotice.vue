@@ -10,7 +10,7 @@ export default {
 </script>
 <style>
 .main-wraper {
-    height: calc(100vh - 100px);
+    height: calc(100vh - 70px);
     overflow:auto;
 }
 </style>

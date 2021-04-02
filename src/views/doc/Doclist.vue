@@ -95,9 +95,9 @@ export default {
 </script>
 
 <style scoped>
-  .container-doc{
+  /* .container-doc{
     font-size: 30px;
-  }
+  } */
   .btn-container {
     text-align: left;
     /* padding: 0px 10px 20px 0px; */

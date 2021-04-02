@@ -1,14 +1,14 @@
 <template>
   <div class="container-add">
+    <div class="btn-container">
+      <el-button @click="submitForm" type="primary">提交</el-button>
+    </div>
     <el-form ref="form" :model="state.modelData" :rules="rules">
       <el-form-item prop="title" label="标题">
         <el-input v-model="state.modelData.title"></el-input>
       </el-form-item>
       <el-form-item prop="content" label="内容">
         <el-input type="textarea" :autosize="{ minRows: 10,maxRows: 10}" v-model="state.modelData.content" placeholder=""></el-input>
-      </el-form-item>
-      <el-form-item>
-        <el-button @click="submitForm" type="primary">提交</el-button>
       </el-form-item>
     </el-form>
   </div>

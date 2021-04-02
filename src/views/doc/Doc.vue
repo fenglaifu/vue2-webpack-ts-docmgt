@@ -1,8 +1,16 @@
 <template>
-    <router-view />
+    <div class="main-wraper">
+        <router-view></router-view>
+    </div>
 </template>
 <script>
 export default {
     name: 'doc',
 };
 </script>
+<style>
+.main-wraper {
+    height: calc(100vh - 70px);
+    overflow:auto;
+}
+</style>

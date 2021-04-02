@@ -16,8 +16,8 @@
       />
     </el-menu>
   </el-scrollbar>
-  <div class="toggleButton" @click="$store.commit('togleCollapse')">
-    <i :class="$store.state.sideBarArrow"></i>
+  <div class="toggleButton">
+    <i :class="$store.state.sideBarArrow" @click="$store.commit('togleCollapse')"></i>
   </div>
 </aside>
 </template>

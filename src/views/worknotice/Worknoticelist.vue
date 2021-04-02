@@ -103,7 +103,5 @@ export default {
   height: calc(100vh - 220px);
   overflow: auto;
 }
-.cell button {
-  padding: 10px 20px;
-}
+
 </style>

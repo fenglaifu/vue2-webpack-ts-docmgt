@@ -1,6 +1,6 @@
 <template>
-    <div class="app-container">
-        <el-row>
+    <div class="container-upload">
+        <el-row class="row-upload-button">
             <el-col>
                 <el-upload
                 :action="actionUrl"
@@ -111,6 +111,9 @@ export default {
 }
 .el-row{
     margin-top: 20px;
+}
+.row-upload-button{
+    margin-top: 0px;
 }
 .dir-div{
     width:  100%;
