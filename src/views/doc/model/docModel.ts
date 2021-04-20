@@ -71,7 +71,7 @@ export function DocModelData() {
     }
 
     const services = axios.create({
-        baseURL: "http://localhost:5000/api",
+        baseURL: baseURL,
         timeout: 360000
       });
       
