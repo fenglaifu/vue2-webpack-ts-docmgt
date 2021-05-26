@@ -45,6 +45,7 @@ export default {
             actionUrl: baseURL + '/uploadSingle',
             dataTreeList: [],
             filePath: '',
+			filePathList: [],
             parentId: '',
         };
     },
@@ -85,14 +86,27 @@ export default {
         handleNodeClick: function(data:any, Node:any, element:any) {
             if(data.isDir){
                 if(data.parentId > 0){
-                    this.filePath = data.filePath + '/' + data.fileName;
+                    //this.filePath = data.filePath + '/' + data.fileName;
+					this.filePathList = [];
+					this.getParentFilePath(Node);
+					this.filePath = this.filePathList.join('/');
                 }
                 else {
                     this.filePath = data.filePath;
                 }
                 this.parentId = data.id;
             }
-        }
+        },
+		getParentFilePath: function(node:any) {
+			if(node) {
+				if(node.label !== undefined) {
+					this.filePathList.unshift(node.label);
+					this.getParentFilePath(node.parent); 
+				}
+			}
+		
+		}
+		
     }
 }
     
