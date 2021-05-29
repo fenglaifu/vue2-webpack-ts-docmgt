@@ -161,6 +161,18 @@ const routes:RouteConfig[] = [
                 activeMenu: '/doc',
               },
             },
+            {
+              path: 'docdetailnotsupported/:id/:suffix',
+              component: () => import('../views/doc/Docdetailnotsupported.vue'),
+              name: 'docdetailnotsupported',
+              hidden: true,
+              props:true,
+              meta: {
+                title: '文档详情',
+                icon: 'el-icon-folder-opened',
+                activeMenu: '/doc',
+              },
+            },
           ],
     },
   ];

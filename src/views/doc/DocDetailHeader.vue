@@ -1,7 +1,7 @@
 <template>
     <div class="btn-container">
-        <div>文件名称: {{fileInfo.fileName}}</div>
-        <el-button type="success" icon="el-icon-download" @click="downloadFile">下载</el-button>
+        <div>文件名称: <el-link type="primary" @click="downloadFile">{{fileInfo.fileName}}</el-link>
+        </div>
         <hr/>
     </div>
 </template>

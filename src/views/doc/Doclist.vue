@@ -57,15 +57,15 @@ export default {
             this.$router.push({ name: "docdetailPdf", params: { id:  data.id}});
             return;
           }
-          else if(suffix === 'doc' || suffix === 'docx'){
+          else if(suffix === 'docx'){
             this.$router.push({ name: "docdetailDocx", params: { id:  data.id}});
             return;
           }
-          else if(suffix === 'pptx'){
+          /* else if(suffix === 'pptx'){
             this.$router.push({ name: "docdetailPpt", params: { id:  data.id}});
             return;
-          }
-          else if(suffix === 'xls' || suffix === 'xlsx'){
+          } */
+          else if(suffix === 'xlsx'){
             this.$router.push({ name: "docdetailXlsx", params: { id:  data.id}});
             return;
           }
@@ -74,11 +74,12 @@ export default {
             return;
           }
           else {
-            Message({
+            /* Message({
                     message: `不支持文件类型[${suffix}]的预览`,
                     type: "error",
                     duration: 3 * 1000,
-                });
+                }); */
+            this.$router.push({ name: "docdetailnotsupported", params: { id:  data.id, suffix: suffix}});
             return;
           }
         }

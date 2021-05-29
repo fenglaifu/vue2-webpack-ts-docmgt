@@ -10,10 +10,10 @@
             <el-form-item prop="title" label="标题">
                 <el-input v-model="state.modelData.title" readonly></el-input>
             </el-form-item>
-            <el-form-item prop="content" label="内容">
-                <!--<el-input type="textarea" :autosize="{ minRows: 10,maxRows: 10}" v-model="state.modelData.content" readonly></el-input>-->
-				<div v-html="state.modelData.content" />
+            <el-form-item prop="title" label="内容"><br/>
+                <div class="content-line" v-html="contentHtml"></div>
             </el-form-item>
+            
         </el-form>
     </div>
 </template>
@@ -37,9 +37,16 @@ export default {
     async mounted() {
         await getDetail(this.id);
     },
+    computed: {
+        contentHtml: function(){
+            return state.modelData.content ? state.modelData.content.replace(/\n/g, '<br>'): '';
+        }
+    },
 }
 </script>
 
 <style scoped>
-
+.content-line{
+    line-height: 1.8rem !important;
+}
 </style>

@@ -2,14 +2,14 @@
     <div class="app-wrapper">
         <el-row  :gutter="20"  class="el-row home" type="flex">
             <el-col :span="8">
-                <el-card shadow="always">
-                <router-link to="/worknotice/worknoticelist">工作通知</router-link>
-                </el-card>
+                <router-link to="/worknotice/worknoticelist">
+                    <el-card shadow="always">工作通知</el-card>
+                </router-link>
             </el-col>
             <el-col :span="8">
-                <el-card shadow="always">
-                <router-link to="/doc/doclist">文档</router-link>
-                </el-card>
+                <router-link to="/doc/doclist">
+                    <el-card shadow="always">文档</el-card>
+                </router-link>
             </el-col>
         </el-row>
     </div>
