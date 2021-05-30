@@ -1,6 +1,7 @@
 
 import {HttpService} from '../../../utils/HttpService';
 import axios from 'axios';
+import store from '../../../store'
 import { Message } from 'element-ui';
 
 export function DocModelData() {
@@ -12,11 +13,6 @@ export function DocModelData() {
     const state = {
         loading: true, // 加载状态
         dataList: [], // 列表数据
-        total: 0,
-        listQuery: {
-            curPage: 1,
-            pageSize: 10,
-        },
         dirFilePath: '',
         defaultProps: {
             label: "fileName",
@@ -24,6 +20,23 @@ export function DocModelData() {
             isLeaf: 'leaf'
         }
     };
+
+    const getPaginationDataList = () => {
+        state.loading = true;
+        let url = `/docFile/${store.state.docFileData.listQuery.curPage}/${store.state.docFileData.listQuery.pageSize}`;
+        return service.getData(url)
+        .then((result:any) => {
+          store.commit('setDocFileDataState', {list: result.list, total: result.total});
+          return result;
+        })
+        .catch(error => {
+          console.log(error);
+          service.showErrorMsg(undefined);
+        })
+        .finally(() => {
+            state.loading = false;
+        });
+    }
 
     const getAllDataList = (vueObj:any) => {
         state.loading = true;
@@ -195,5 +208,5 @@ export function DocModelData() {
     }
 
     
-    return {state, baseURL, getAllDataList, getAllDirTree, getFileInfo, deleteFile, previewFile, previewPdfFile, previewXlsxFile, previewDocxFile, uploadSingle, downloadFile}
+    return {state, baseURL, getPaginationDataList, getAllDataList, getAllDirTree, getFileInfo, deleteFile, previewFile, previewPdfFile, previewXlsxFile, previewDocxFile, uploadSingle, downloadFile}
 }

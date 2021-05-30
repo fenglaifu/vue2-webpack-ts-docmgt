@@ -8,7 +8,7 @@
       </div>
        <el-table
         v-loading="state.loading"
-        :data="state.list"
+        :data="$store.state.worknotice.list"
         border
         fit="fit"
         stripe
@@ -33,10 +33,10 @@
       </el-table>
       <!-- 分页 -->
       <pagination
-        v-show="state.total > 0"
-        :total="state.total"
-        :page="state.listQuery.curPage"
-        :limit="state.listQuery.pageSize"
+        v-show="$store.state.worknotice.total > 0"
+        :total="$store.state.worknotice.total"
+        :page="$store.state.worknotice.listQuery.curPage"
+        :limit="$store.state.worknotice.listQuery.pageSize"
         @pagination="getPageData">
       </pagination>  
     </div>
@@ -72,8 +72,7 @@ export default {
   },
   methods: {
     getPageData({page, limit}) {
-      state.listQuery.curPage = page;
-      state.listQuery.pageSize = limit;
+      this.$store.commit('setWorkNoticeState', {listQuery: {curPage: page, pageSize: limit}});
       getDataList();
     },
     handleView({row}) {

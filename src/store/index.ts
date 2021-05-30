@@ -32,6 +32,15 @@ export default new Vuex.Store({
 
         }
       },
+      docFileData: {
+        list: [], // 列表数据
+        total: 0,
+        test: 'te',
+        listQuery: {
+            curPage: 1,
+            pageSize: 10,
+        },
+      },
   },
   mutations: {
     togleCollapse(state, step) {
@@ -44,6 +53,12 @@ export default new Vuex.Store({
         state.sideBarWidth = state.sideBarWidthExpand;
         state.sideBarArrow = state.sideBarArrowLeft;
       }
+    },
+    setWorkNoticeState(state, step){
+      state.worknotice = Object.assign(state.worknotice, step);
+    },
+    setDocFileDataState(state, step){
+      state.docFileData = Object.assign(state.docFileData, step);
     },
     setDirFileDataList(state, step) {
       state.dirFileDataList = step ? step : [];

@@ -1,4 +1,5 @@
 import { RouteConfig } from 'vue-router'
+import store from '../store'
 export function RouteData(){
 const routes:RouteConfig[] = [
         {
@@ -26,6 +27,17 @@ const routes:RouteConfig[] = [
               path: 'worknoticelist',
               component: () => import('../views/worknotice/Worknoticelist.vue'),
               name: 'worknoticelist',
+              beforeEnter: (to, from, next) => {
+                store.commit('setWorkNoticeState', {
+                  list: [],
+                  total: 0,
+                  listQuery: {
+                      curPage: 1,
+                      pageSize: 10,
+                  },
+                });
+                next();
+              },
               hidden: true,
               meta: {
                 title: '工作通知列表',
@@ -69,8 +81,19 @@ const routes:RouteConfig[] = [
           children: [
             {
               path: 'doclist',
-              component: () => import('../views/doc/Doclist.vue'),
+              component: () => import('../views/doc/DoclistTable.vue'),
               name: 'Doclist',
+              beforeEnter: (to, from, next) => {
+                store.commit('setDocFileDataState', {
+                  list: [],
+                  total: 0,
+                  listQuery: {
+                      curPage: 1,
+                      pageSize: 10,
+                  },
+                });
+                next();
+              },
               hidden: true,
               meta: {
                 title: '文档列表',

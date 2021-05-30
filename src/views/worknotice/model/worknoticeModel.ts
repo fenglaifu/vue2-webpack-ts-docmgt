@@ -1,15 +1,10 @@
 /* import {store} from '../../../store'; */
 import {HttpService} from '../../../utils/HttpService';
+import store from '../../../store'
 export function WorkNoticeModelData() {
 
     let state = {
         loading: true, // 加载状态
-        list: [], // 列表数据
-        total: 0,
-        listQuery: {
-            curPage: 1,
-            pageSize: 10,
-        },
         modelData: {},
     };
 
@@ -17,11 +12,11 @@ export function WorkNoticeModelData() {
 
     const getDataList = () => {
         state.loading = true;
-        let url = `/workNotice/${state.listQuery.curPage}/${state.listQuery.pageSize}`;
+        let url = `/workNotice/${store.state.worknotice.listQuery.curPage}/${store.state.worknotice.listQuery.pageSize}`;
         return service.getData(url)
         .then((result:any) => {
-          state.list = result.list;
-          state.total = result.total;
+          store.state.worknotice.list = result.list;
+          store.state.worknotice.total = result.total;
           return result;
         })
         .catch(error => {
